@@ -16,11 +16,32 @@ build an evidence-backed profile, hold multi-turn dates with every other agent, 
 `POST /runs` runs the whole pipeline in the background; `GET /runs/{id}` reports real per-stage status,
 failures and timings. `mcp_server.py` exposes `get_profile`, `get_rankings`, `run_date` over MCP.
 
-## Run
-    pip install -r requirements.txt
-    export GEMINI_API_KEY=...
-    uvicorn main:app --reload        # API
-    python mcp_server.py             # MCP server
+## Run the web app
+
+Install dependencies and set your Gemini API key:
+
+**Windows PowerShell**
+```powershell
+python -m pip install -r requirements.txt
+$env:GEMINI_API_KEY = "your-api-key"
+python -m uvicorn main:app --reload
+```
+
+**macOS/Linux**
+```sh
+python -m pip install -r requirements.txt
+export GEMINI_API_KEY="your-api-key"
+python -m uvicorn main:app --reload
+```
+
+Open <http://127.0.0.1:8000/> for the browser interface. It supports adding participants, starting a
+matching run, and viewing profiles, rankings, and date details. The API documentation is at
+<http://127.0.0.1:8000/docs>.
+
+The MCP server can be started separately with `python mcp_server.py`. It also requires `GEMINI_API_KEY`
+for operations that call Gemini.
+
+Keep your API key private; do not commit it or include it in uploaded files.
 
 ## Data sources and consent
 Source text must come from an authorized path: the participant connects their own accounts through a
